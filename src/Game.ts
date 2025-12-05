@@ -6,6 +6,7 @@ import {
     SolverStrategy,
     vec
 } from "excalibur";
+import * as ex from "excalibur";
 
 import { loader } from "resources";
 import { StartScene } from "scenes/StartScene";
