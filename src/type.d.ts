@@ -1,0 +1,1 @@
+export type ModelHandlerArguemnts<T = unknown> = { value: T, oldValue: T }

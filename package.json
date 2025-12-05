@@ -1,0 +1,31 @@
+{
+  "name": "esbuild",
+  "version": "1.0.0",
+  "description": "CSS and JavaScript build system using esbuild",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "bundle": "node ./esbuild.config.js",
+    "watch:prod": "npm run bundle -- prod watch",
+    "watch": "npm run bundle -- dev watch",
+    "build": "npm run bundle -- prod",
+    "dev": "npm run bundle -- dev serv watch",
+    "start": "npm run bundle -- prod serv watch"
+  },
+  "author": "Demo",
+  "devDependencies": {
+    "@jgoz/esbuild-plugin-html": "^1.0.10",
+    "esbuild": "^0.25.12",
+    "esbuild-plugin-clean": "^1.0.1",
+    "esbuild-plugin-copy": "^2.1.1",
+    "esbuild-plugin-svg": "^0.1.0",
+    "esbuild-plugin-tsc": "^0.4.0",
+    "esbuild-sass-plugin": "^3.3.1",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "@preact/signals": "^2.3.2",
+    "excalibur": "^0.31.0",
+    "preact": "^10.27.2"
+  }
+}

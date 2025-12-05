@@ -1,0 +1,44 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background-color: #ffffff;
+    width: 100%;
+    height: 100%;
+}
+
+svg {
+    width: var(--icon-size, 24px);
+    height: var(--icon-size, 24px);
+    fill: var(--icon-fill, currentColor);
+}
+
+#game {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.ex-scale {
+    transform-origin: 0 0;
+    transform: scale(var(--ex-pixel-ratio), var(--ex-pixel-ratio));
+}
+
+#ui {
+    transform-origin: 0 0;
+    transform: scale(var(--ex-pixel-ratio), var(--ex-pixel-ratio));
+    left: var(--screen-x);
+    top: var(--screen-y);
+    position: absolute;
+}
+
+.--hide {
+    display: none;
+}
