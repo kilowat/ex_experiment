@@ -8,7 +8,8 @@ import {
 } from "excalibur";
 import * as ex from "excalibur";
 
-import { loader } from "resources";
+import { loader, resources } from "resources";
+import { LevelScene } from "scenes/LevelScene";
 import { StartScene } from "scenes/StartScene";
 import { UILayout } from "ui/UILayout";
 import { showUI } from "utils/ui";
@@ -19,11 +20,14 @@ const gameOptions: EngineOptions = {
     canvasElementId: 'game',
     physics: {
         solver: SolverStrategy.Arcade,
-        gravity: vec(0, 50),
+        gravity: vec(0, 800),
     },
     scenes: {
         [StartScene.route]: {
             scene: StartScene,
+        },
+        [LevelScene.route]: {
+            scene: LevelScene,
         },
     }
 };
@@ -65,6 +69,6 @@ game.start(loader).then(() => {
     calculateExPixelConversion(game.screen, game);
     document.getElementById('ui')?.classList.remove('--hide');
     showUI(UILayout());
-    game.goToScene(StartScene.route);
+    game.goToScene(LevelScene.route);
 });
 

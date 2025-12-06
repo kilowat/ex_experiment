@@ -1,6 +1,8 @@
 
+import { Player } from "actors/Player";
 import { Scene, SceneActivationContext } from "excalibur";
 import * as ex from "excalibur";
+import { resources } from "resources";
 
 export class StartScene extends Scene {
     static route = 'start';
