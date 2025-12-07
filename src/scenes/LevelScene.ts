@@ -27,16 +27,18 @@ export class LevelScene extends Scene {
             levelFilter: ['Level_0']
         });
         const player = this.world.entityManager.getByName('player')[0];
-        this.add(player);
-        /*
+        //this.add(player);
+
         if (player instanceof Player) {
-            this.camera.clearAllStrategies();
+            //this.camera.clearAllStrategies();
             this.camera.strategy.lockToActor(player);
+            const level = resources.ltdkMap.getLevel('Level_0');
             const bounds = resources.ltdkMap.getLevelBounds(['Level_0']);
+            console.log(bounds)
             this.camera.strategy.limitCameraBounds(bounds);
             this.add(player);
         }
-        */
+
     }
 
     onActivate(context: SceneActivationContext<unknown>): void {

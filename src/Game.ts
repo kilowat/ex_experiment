@@ -16,11 +16,17 @@ import { showUI } from "utils/ui";
 
 const gameOptions: EngineOptions = {
     suppressPlayButton: true,
-    displayMode: DisplayMode.FitScreen,
+    displayMode: ex.DisplayMode.FitScreenAndFill,
     canvasElementId: 'game',
+    resolution: {
+        width: 256,
+        height: 256,
+    },
+    pixelArt: true,
+    pixelRatio: 4,
     physics: {
         solver: SolverStrategy.Arcade,
-        gravity: vec(0, 800),
+        gravity: vec(0, 350),
     },
     scenes: {
         [StartScene.route]: {
