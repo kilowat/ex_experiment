@@ -5,6 +5,9 @@ import { LdtkResource } from "@excaliburjs/plugin-ldtk";
 import ltdkMainSrc from "./assets/editor/main.ldtk";
 import level0Src from "./assets/editor/main/Level_0.ldtkl";
 import twilightTilesSrc from './assets/sprites/twilight-tiles.png';
+import exteriorParallaxBG1Src from './assets/sprites/exterior-parallaxBG1.png';
+import exteriorParallaxBG2Src from './assets/sprites/exterior-parallaxBG2.png';
+
 
 export const resources = {
     farmMusic: new Sound(farmMusicPath),
@@ -15,6 +18,8 @@ export const resources = {
         pathMap: [
             { path: 'Level_0.ldtkl', output: level0Src },
             { path: 'twilight-tiles', output: twilightTilesSrc },
+            { path: 'exterior-parallaxBG1.png', output: exteriorParallaxBG1Src },
+            { path: 'exterior-parallaxBG2.png', output: exteriorParallaxBG2Src },
         ]
     }),
 } as const

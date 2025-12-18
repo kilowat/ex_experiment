@@ -26,7 +26,13 @@
 	"__smartColor": "#ADADB5",
 	"__bgPos": null,
 	"externalRelPath": null,
-	"fieldInstances": [],
+	"fieldInstances": [
+		{ "__identifier": "BG_NEAR", "__type": "FilePath", "__value": "../sprites/exterior-parallaxBG1.png", "__tile": null, "defUid": 89, "realEditorValues": [{
+			"id": "V_String",
+			"params": ["../sprites/exterior-parallaxBG1.png"]
+		}] },
+		{ "__identifier": "BG_NEAR_PARALAX", "__type": "Float", "__value": 0, "__tile": null, "defUid": 90, "realEditorValues": [] }
+	],
 	"layerInstances": [
 		{
 			"__identifier": "Colliders",
@@ -171,7 +177,7 @@
 			"entityInstances": []
 		},
 		{
-			"__identifier": "Tiles",
+			"__identifier": "BG1",
 			"__type": "Tiles",
 			"__cWid": 45,
 			"__cHei": 16,
@@ -179,8 +185,8 @@
 			"__opacity": 1,
 			"__pxTotalOffsetX": 0,
 			"__pxTotalOffsetY": 0,
-			"__tilesetDefUid": 4,
-			"__tilesetRelPath": "../sprites/twilight-tiles.png",
+			"__tilesetDefUid": 87,
+			"__tilesetRelPath": "../sprites/exterior-parallaxBG1.png",
 			"iid": "0a368640-ac70-11f0-bd4c-05b007900819",
 			"levelId": 0,
 			"layerDefUid": 10,

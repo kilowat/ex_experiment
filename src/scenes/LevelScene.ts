@@ -4,6 +4,7 @@ import { Scene, SceneActivationContext } from "excalibur";
 import * as ex from "excalibur";
 import { resources } from "resources";
 import { IntGridColliderBuilder } from "utils/ltdk/IntGridColiderBuilder";
+import { createParallaxBackground } from "utils/ltdk/paralax";
 
 export class LevelScene extends Scene {
     static route = 'level';
@@ -62,6 +63,12 @@ export class LevelScene extends Scene {
                 }
             ]
         }).build();
+        const level = resources.ltdkMap.getLevel('Level_0')?.ldtkLevel!;
+
+        const bgNewaImage = level.fieldInstances.find(f => f.__identifier === 'BG_NEAR')?.__value;
+        console.log(level)
+        const bgNewaImageParalax = level.fieldInstances.find(f => f.__identifier === 'BG_NEAR_PARALAX')?.__value ?? 0.2;
+        createParallaxBackground(bgNewaImage, bgNewaImageParalax, engine);
 
     }
 
