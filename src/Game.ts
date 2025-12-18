@@ -26,7 +26,8 @@ const gameOptions: EngineOptions = {
     pixelRatio: 4,
     physics: {
         solver: SolverStrategy.Arcade,
-        gravity: vec(0, 350),
+        gravity: vec(0, 500),
+        substep: 2
     },
     scenes: {
         [StartScene.route]: {
