@@ -34,7 +34,7 @@ export class LevelScene extends Scene {
         if (player instanceof Player) {
             //this.camera.clearAllStrategies();
             this.camera.strategy.lockToActor(player);
-            const level = resources.ltdkMap.getLevel('Level_0');
+
             const bounds = resources.ltdkMap.getLevelBounds(['Level_0']);
             this.camera.strategy.limitCameraBounds(bounds);
             this.add(player);
@@ -58,17 +58,44 @@ export class LevelScene extends Scene {
                 },
                 (actor, ctx) => {
                     if (ctx.chunk.value === 2) {
-                        console.log(actor)
+                        //to do
                     }
                 }
             ]
         }).build();
         const level = resources.ltdkMap.getLevel('Level_0')?.ldtkLevel!;
 
-        const bgNewaImage = level.fieldInstances.find(f => f.__identifier === 'BG_NEAR')?.__value;
-        console.log(level)
-        const bgNewaImageParalax = level.fieldInstances.find(f => f.__identifier === 'BG_NEAR_PARALAX')?.__value ?? 0.2;
-        createParallaxBackground(bgNewaImage, bgNewaImageParalax, engine);
+        //const bgNewaImage = level.fieldInstances.find(f => f.__identifier === 'BG_NEAR')?.__value;
+        const bgNewaImage = resources.exteriorParallaxBG1Src;
+        const bgNearParalxVlue = level.fieldInstances.find(f => f.__identifier === 'BG_NEAR_PARALAX')?.__value ?? 0.2
+
+        console.log(engine.screen.drawWidth);
+        console.log(this.camera.viewport.width);
+        const bounds = resources.ltdkMap.getLevelBounds(['Level_0']);
+        const bg = new ex.Actor({
+            anchor: ex.vec(0, 0),
+            pos: ex.vec(0, 0),
+            z: -10
+        });
+
+        const tiled = new ex.TiledSprite({
+            image: bgNewaImage,
+            width: this.camera.viewport.width,
+            height: this.camera.viewport.height
+        });
+
+        bg.graphics.use(tiled);
+
+        this.camera.on('postupdate', () => {
+            const vp = this.camera.viewport;
+            bg.pos.setTo(vp.left, vp.top);
+            tiled.width = vp.width;
+            tiled.height = vp.height;
+        });
+
+
+        // bg.addComponent(new ex.ParallaxComponent(ex.vec(0.1, 0.6)))
+        this.add(bg);
 
     }
 

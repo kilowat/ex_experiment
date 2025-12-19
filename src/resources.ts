@@ -1,5 +1,5 @@
 
-import { Loader, Sound, } from "excalibur";
+import { ImageSource, Loader, Sound, } from "excalibur";
 import farmMusicPath from './assets/apple_cider.ogg'
 import { LdtkResource } from "@excaliburjs/plugin-ldtk";
 import ltdkMainSrc from "./assets/editor/main.ldtk";
@@ -22,6 +22,8 @@ export const resources = {
             { path: 'exterior-parallaxBG2.png', output: exteriorParallaxBG2Src },
         ]
     }),
+    exteriorParallaxBG1Src: new ImageSource(exteriorParallaxBG1Src),
+    exteriorParallaxBG2Src: new ImageSource(exteriorParallaxBG2Src),
 } as const
 
 export const loader = new Loader();
