@@ -26,8 +26,37 @@ export type IntGridColliderFactory = (
     context: IntGridColliderContext
 ) => Actor | undefined;
 
+export const DefaultIntGridColliderFactory: IntGridColliderFactory = ({
+    chunk,
+    tileSize,
+    worldPos
+}) => {
+    const widthPx = chunk.width * tileSize;
+    const heightPx = chunk.height * tileSize;
 
-export function mergeIntGrid(layer: IntGridLayer): IntGridColliderChunk[] {
+    const actor = new Actor({
+        pos: vec(
+            worldPos.x + chunk.x * tileSize + widthPx / 2,
+            worldPos.y + chunk.y * tileSize + heightPx / 2
+        ),
+        width: widthPx,
+        height: heightPx,
+        collisionType: CollisionType.Fixed
+    });
+
+
+    return actor;
+};
+
+export interface IntGridBuilderParams {
+    layer: IntGridLayer;
+    onBuild: (actor: Actor) => void;
+    factory?: IntGridColliderFactory;
+    decorators?: IntGridColliderDecorator[];
+    filterValues?: number[];
+}
+
+function mergeIntGrid(layer: IntGridLayer): IntGridColliderChunk[] {
     const { intGridCsv, __cWid, __cHei } = layer.ldtkLayer;
     const visited = new Set<number>();
     const chunks: IntGridColliderChunk[] = [];
@@ -78,73 +107,36 @@ export function mergeIntGrid(layer: IntGridLayer): IntGridColliderChunk[] {
     return chunks;
 }
 
+export function intGridBuilder({
+    layer,
+    onBuild,
+    factory = DefaultIntGridColliderFactory,
+    decorators = [],
+    filterValues
+}: IntGridBuilderParams) {
+    const chunks = mergeIntGrid(layer);
+    const tileSize = layer.ldtkLayer.__gridSize;
+    const worldPos = layer.tilemap.pos;
 
-export const DefaultIntGridColliderFactory: IntGridColliderFactory = ({
-    chunk,
-    tileSize,
-    worldPos
-}) => {
-    const widthPx = chunk.width * tileSize;
-    const heightPx = chunk.height * tileSize;
-
-    const actor = new Actor({
-        pos: vec(
-            worldPos.x + chunk.x * tileSize + widthPx / 2,
-            worldPos.y + chunk.y * tileSize + heightPx / 2
-        ),
-        width: widthPx,
-        height: heightPx,
-        collisionType: CollisionType.Fixed
-    });
-
-
-    return actor;
-};
-
-export interface IntGridColliderBuilderOptions {
-    factory?: IntGridColliderFactory;
-    decorators?: IntGridColliderDecorator[];
-    filterValues?: number[];
-}
-
-export class IntGridColliderBuilder {
-    constructor(
-        private layer: IntGridLayer,
-        private scene: Scene,
-        private options: IntGridColliderBuilderOptions = {}
-    ) { }
-
-    build() {
-        const {
-            factory = DefaultIntGridColliderFactory,
-            decorators = [],
-            filterValues
-        } = this.options;
-
-        const chunks = mergeIntGrid(this.layer);
-
-        for (const chunk of chunks) {
-            if (filterValues && !filterValues.includes(chunk.value)) continue;
-
-            const actor = factory({
-                layer: this.layer,
-                chunk,
-                tileSize: this.layer.ldtkLayer.__gridSize,
-                worldPos: this.layer.tilemap.pos
-            });
-
-            if (!actor) continue;
-
-            for (const decorator of decorators) {
-                decorator(actor, {
-                    layer: this.layer,
-                    chunk,
-                    tileSize: this.layer.ldtkLayer.__gridSize,
-                    worldPos: this.layer.tilemap.pos
-                });
-            }
-
-            this.scene.add(actor);
+    for (const chunk of chunks) {
+        if (filterValues && !filterValues.includes(chunk.value)) {
+            continue;
         }
+
+        const context: IntGridColliderContext = {
+            layer,
+            chunk,
+            tileSize,
+            worldPos
+        };
+
+        const actor = factory(context);
+        if (!actor) continue;
+
+        for (const decorator of decorators) {
+            decorator(actor, context);
+        }
+
+        onBuild(actor);
     }
 }
